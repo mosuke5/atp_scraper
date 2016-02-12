@@ -1,0 +1,22 @@
+AllCops:
+  Exclude:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'atp_scraper.gemspec'
+    - 'test/**/*'
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Style/MutableConstant:
+  Enabled: false
