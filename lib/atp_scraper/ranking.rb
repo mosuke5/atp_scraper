@@ -1,9 +1,9 @@
 ## Structure Rnaking Page
 # ranking_doc
-#   player_doc
-#   player_doc
-#   player_doc
-#   player_doc
+#   no1. player_doc
+#   no2. player_doc
+#   no3. player_doc
+#   no4. player_doc
 #################
 
 module AtpScraper
