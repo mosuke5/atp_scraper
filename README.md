@@ -22,8 +22,37 @@ Or install it yourself as:
     $ gem install atp_scraper
 
 ## Usage
+```ruby
+require "atp_scraper"
 
-TODO: Write usage instructions here
+# Get Singles Ranking
+AtpScraper::Ranking.get
+# Response Json
+# {
+#   player_name: "Rafael Nadal",
+#   player_url_name: "rafael-nadal",
+#   player_id: "n409"
+# }
+
+# Get Player Activity. For Example Rafael Nadal's activity in 2016
+AtpScraper::Activity.get("n409", 2016)
+# Response Json
+# {
+#   year: 2016,
+#   player_name: "Rafael Nadal",
+#   player_rank: 5,
+#   opponent_name: "Fernand Verdasco",
+#   opponent_rank: 45,
+#   round: "Round of 128",
+#   score: "673 64 63 674 26",
+#   win_loss: "L",
+#   tournament_name: "Australian Open",
+#   tournament_location: "Melbourne, Australia",
+#   tournament_start_date: "2016.01.18",
+#   tournament_end_date: "2016.01.31",
+#   tournament_surface: "OurdoorHard"
+# }
+```
 
 ## Development
 
