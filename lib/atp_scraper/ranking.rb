@@ -45,6 +45,7 @@ module AtpScraper
         player_doc.css(".player-cell a").attr("href").value
       end
 
+      # url => "/en/players/rafael-nadal/n409/overview"
       def get_url_name(url)
         url.split("/")[3]
       end
