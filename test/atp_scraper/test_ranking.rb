@@ -17,6 +17,7 @@ class TestRanking < Test::Unit::TestCase
 
   def test_pickup_ranking_data_no1
     expect = {
+      ranking: '1',
       player_name: 'Novak Djokovic',
       player_url_name: 'novak-djokovic',
       player_id: 'd643'
@@ -27,6 +28,7 @@ class TestRanking < Test::Unit::TestCase
 
   def test_pickup_ranking_data_no5
     expect = {
+      ranking: '5',
       player_name: 'Rafael Nadal',
       player_url_name: 'rafael-nadal',
       player_id: 'n409'

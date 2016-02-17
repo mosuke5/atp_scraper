@@ -21,14 +21,18 @@ Or install it yourself as:
 ```ruby
 require "atp_scraper"
 
-# Get Singles Ranking
+# Get Singles Ranking TOP100
 AtpScraper::Ranking.get
 # Response Json
 # {
+#   rannking: "5"
 #   player_name: "Rafael Nadal",
 #   player_url_name: "rafael-nadal",
 #   player_id: "n409"
 # }
+
+# Get Singles Ranking 101-200
+AtpScraper::Ranking.get("101-200")
 
 # Get Player Activity. For Example Rafael Nadal's activity in 2016
 AtpScraper::Activity.get("n409", 2016)
