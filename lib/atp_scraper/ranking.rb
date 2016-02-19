@@ -9,7 +9,6 @@
 module AtpScraper
   # Scrape ranking data
   class Ranking
-
     def pickup_ranking_data(ranking_doc)
       result = []
       search_player_doc(ranking_doc).each do |player_doc|

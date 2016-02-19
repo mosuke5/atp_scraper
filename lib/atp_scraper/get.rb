@@ -1,4 +1,5 @@
 module AtpScraper
+  # Main class
   class Get
     def self.singles_ranking(rank_range = nil)
       request_uri = "/en/rankings/singles?rankRange=#{rank_range}"

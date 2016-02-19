@@ -30,7 +30,7 @@ module AtpScraper
       end
       result
     end
-    
+
     private
 
     def search_tournaments_doc(activity_doc)
