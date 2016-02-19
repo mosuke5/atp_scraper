@@ -7,64 +7,27 @@ class TestActivity < Test::Unit::TestCase
     # Australian open, Qatar
     @html = File.open('test/atp_scraper/data/sample_activity.html').read
     @html_charset = "utf-8"
-    @activity = AtpScraper::Activity
+    @activity = AtpScraper::Activity.new
     @activity_doc = AtpScraper::Html.parse(@html, @html_charset)
-
-    # Australian Open Tournament
-    @tournament_doc = @activity.search_tournaments_doc(@activity_doc).first
-    @tournament_info = @activity.pickup_tournament_info(@tournament_doc)
-
-    # Australian Open Final vs A.Murray record
-    @record_doc = @activity.search_records_doc(@tournament_doc).first
   end
-
-  def test_pickup_player_name
-    expect = 'Novak Djokovic'
-    actual = @activity.pickup_player_name(@activity_doc)
-    assert_equal(actual, expect)
-  end
-
-  def test_pickup_tournament_info
+  
+  def test_pickup_activity_data
     expect = {
-      name: 'Australian Open',
-      location: 'Melbourne, Australia',
-      date: { start: '2016.01.18', end: '2016.01.31' },
       year: '2016',
-      caption: 'This Event Points: 2000, ATP Ranking: 1, Prize Money: A$3,400,000',
-      surface: 'OutdoorHard'
-    }
-    actual = @activity.pickup_tournament_info(@tournament_doc)
-    assert_equal(actual, expect)
-  end
-
-  def test_pickup_pleyer_rank
-    expect = '1'
-    actual = @activity.pickup_player_rank(@tournament_info[:caption])
-    assert_equal(actual, expect)
-  end
-
-  def test_pickup_record
-    expect = {
-      round: 'Finals',
-      opponent_rank: '2',
+      player_name: 'Novak Djokovic',
+      player_rank: '1',
       opponent_name: 'Andy Murray',
+      opponent_rank: '2',
+      round: 'Finals',
+      score: '61 75 763',
       win_loss: 'W',
-      score: '61 75 763'
+      tournament_name: 'Australian Open',
+      tournament_location: 'Melbourne, Australia',
+      tournament_start_date: '2016.01.18',
+      tournament_end_date: '2016.01.31',
+      tournament_surface: 'OutdoorHard'
     }
-    actual = @activity.pickup_record(@record_doc)
-    assert_equal(actual, expect)
-  end
-
-  def test_pickup_surface
-    expect = 'OutdoorHard'
-    actual = @activity.pickup_surface(@tournament_doc)
-    assert_equal(actual, expect)
-  end
-
-  def test_divide_tournament_date
-    expect = { start: '2011.01.03', end: '2011.01.08' }
-    data = '2011.01.03 - 2011.01.08'
-    actual = @activity.divide_tournament_date(data)
+    actual = @activity.pickup_activity_data(@activity_doc).first
     assert_equal(actual, expect)
   end
 end
