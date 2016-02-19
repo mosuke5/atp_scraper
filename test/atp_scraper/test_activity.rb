@@ -10,9 +10,9 @@ class TestActivity < Test::Unit::TestCase
     @activity = AtpScraper::Activity.new
     @activity_doc = AtpScraper::Html.parse(@html, @html_charset)
   end
-  
+
   def test_pickup_activity_data
-    expect = {
+    expected = {
       year: '2016',
       player_name: 'Novak Djokovic',
       player_rank: '1',
@@ -28,6 +28,6 @@ class TestActivity < Test::Unit::TestCase
       tournament_surface: 'OutdoorHard'
     }
     actual = @activity.pickup_activity_data(@activity_doc).first
-    assert_equal(actual, expect)
+    assert_equal(actual, expected)
   end
 end

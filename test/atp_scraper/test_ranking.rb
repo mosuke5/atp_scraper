@@ -15,25 +15,24 @@ class TestRanking < Test::Unit::TestCase
   end
 
   def test_pickup_ranking_data_no1
-    expect = {
+    expected = {
       ranking: '1',
       player_name: 'Novak Djokovic',
       player_url_name: 'novak-djokovic',
       player_id: 'd643'
     }
     actual = @ranking.pickup_ranking_data(@ranking_doc).first
-    assert_equal(actual, expect)
+    assert_equal(actual, expected)
   end
 
   def test_pickup_ranking_data_no5
-    expect = {
+    expected = {
       ranking: '5',
       player_name: 'Rafael Nadal',
       player_url_name: 'rafael-nadal',
       player_id: 'n409'
     }
     actual = @ranking.pickup_ranking_data(@ranking_doc)[4]
-    assert_equal(actual, expect)
+    assert_equal(actual, expected)
   end
 end
-
