@@ -8,10 +8,9 @@ class TestRanking < Test::Unit::TestCase
   # 4, Stan Wawrinka
   # 5, Rafael Nadal
   def setup
-    @html = File.open('test/atp_scraper/data/sample_ranking.html').read
-    @html_charset = "utf-8"
-    @ranking = AtpScraper::Ranking.new
-    @ranking_doc = AtpScraper::Html.parse(@html, @html_charset)
+    html = File.open('test/atp_scraper/data/sample_ranking.html').read
+    html_charset = "utf-8"
+    @ranking = AtpScraper::Ranking.new(html, html_charset)
   end
 
   def test_pickup_ranking_data_no1
@@ -21,7 +20,7 @@ class TestRanking < Test::Unit::TestCase
       player_url_name: 'novak-djokovic',
       player_id: 'd643'
     }
-    actual = @ranking.pickup_ranking_data(@ranking_doc).first
+    actual = @ranking.pickup_ranking_data.first
     assert_equal(actual, expected)
   end
 
@@ -32,7 +31,7 @@ class TestRanking < Test::Unit::TestCase
       player_url_name: 'rafael-nadal',
       player_id: 'n409'
     }
-    actual = @ranking.pickup_ranking_data(@ranking_doc)[4]
+    actual = @ranking.pickup_ranking_data[4]
     assert_equal(actual, expected)
   end
 end

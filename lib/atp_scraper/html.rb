@@ -4,11 +4,6 @@ module AtpScraper
   # Get and parse html from atpworldtour.com
   class Html
     BASE = "http://www.atpworldtour.com"
-    def self.get_and_parse(uri)
-      html = get(uri)
-      parse(html[:html], html[:charset])
-    end
-
     def self.get(uri)
       charset = nil
       html = open(BASE + uri) do |f|

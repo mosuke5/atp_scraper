@@ -9,9 +9,13 @@
 module AtpScraper
   # Scrape ranking data
   class Ranking
-    def pickup_ranking_data(ranking_doc)
+    def initialize(html, html_charset = 'utf-8')
+      @ranking_doc = AtpScraper::Html.parse(html, html_charset)
+    end
+
+    def pickup_ranking_data
       result = []
-      search_player_doc(ranking_doc).each do |player_doc|
+      search_player_doc(@ranking_doc).each do |player_doc|
         result.push(pickup_player_data(player_doc))
       end
       result

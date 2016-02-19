@@ -14,12 +14,17 @@
 module AtpScraper
   # Scrape activity data
   class Activity
-    def pickup_activity_data(activity_doc)
+    def initialize(html, html_charset = 'utf-8')
+      @activity_doc = AtpScraper::Html.parse(html, html_charset)
+      @player_name = pickup_player_name(@activity_doc)
+    end
+
+    def pickup_activity_data
       result = []
       player = {}
-      player[:name] = pickup_player_name(activity_doc)
+      player[:name] = @player_name
 
-      search_tournaments_doc(activity_doc).each do |tournament_doc|
+      search_tournaments_doc(@activity_doc).each do |tournament_doc|
         tournament = pickup_tournament_info(tournament_doc)
         player[:rank] = pickup_player_rank(tournament[:caption])
         search_records_doc(tournament_doc).each do |record_doc|
