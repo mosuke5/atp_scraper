@@ -23,7 +23,7 @@ Or install it yourself as:
 require "atp_scraper"
 
 # Get Singles Ranking TOP100
-AtpScraper::Ranking.get
+AtpScraper::Get.singles_ranking
 # Response Json
 # {
 #   rannking: "5"
@@ -33,10 +33,10 @@ AtpScraper::Ranking.get
 # }
 
 # Get Singles Ranking 101-200
-AtpScraper::Ranking.get("101-200")
+AtpScraper::Get.singles_ranking("101-200")
 
 # Get Player Activity. For Example Rafael Nadal's activity in 2016
-AtpScraper::Activity.get("n409", 2016)
+AtpScraper::Get.player_activity("n409", 2016)
 # Response Json
 # {
 #   year: 2016,
