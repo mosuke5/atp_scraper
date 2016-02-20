@@ -60,7 +60,8 @@ module AtpScraper
         tournament_location: tournament[:location],
         tournament_start_date: tournament[:date][:start],
         tournament_end_date: tournament[:date][:end],
-        tournament_surface: tournament[:surface]
+        tournament_surface: tournament[:surface],
+        tournament_surface_inout: tournament[:surface_inout]
       }
     end
 
@@ -92,13 +93,15 @@ module AtpScraper
 
     def pickup_tournament_info(tournament_doc)
       tournament_date = pickup_text(tournament_doc, ".tourney-dates")
+      surface = pickup_surface(tournament_doc)
       {
         name: pickup_text(tournament_doc, ".tourney-title"),
         location: pickup_text(tournament_doc, ".tourney-location"),
         date: divide_tournament_date(tournament_date),
         year: tournament_date[0, 4],
         caption: pickup_text(tournament_doc, ".activity-tournament-caption"),
-        surface: pickup_surface(tournament_doc)
+        surface: surface[:surface],
+        surface_inout: surface[:inout]
       }
     end
 
@@ -119,10 +122,19 @@ module AtpScraper
     end
 
     def pickup_surface(tournament_doc)
-      tournament_doc
+      surface = tournament_doc
         .css(".tourney-details")[1]
         .css(".item-details")
         .first.content.gsub(/\t|\s/, "")
+      divide_surface(surface)
+    end
+
+    def divide_surface(surface)
+      if (surface.match(/^Outdoor/))
+        return { surface: surface.gsub(/Outdoor/, ''), inout: "Outdoor" }
+      else
+        return { surface: surface.gsub(/Indoor/, ''), inout: "Indoor" }
+      end
     end
   end
 end

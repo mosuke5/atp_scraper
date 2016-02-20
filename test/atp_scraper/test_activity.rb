@@ -23,7 +23,8 @@ class TestActivity < Test::Unit::TestCase
       tournament_location: 'Melbourne, Australia',
       tournament_start_date: '2016.01.18',
       tournament_end_date: '2016.01.31',
-      tournament_surface: 'OutdoorHard'
+      tournament_surface: 'Hard',
+      tournament_surface_inout: 'Outdoor'
     }
     actual = @activity.pickup_activity_data.first
     assert_equal(actual, expected)
@@ -43,7 +44,8 @@ class TestActivity < Test::Unit::TestCase
       tournament_location: 'Melbourne, Australia',
       tournament_start_date: '2016.01.18',
       tournament_end_date: '2016.01.31',
-      tournament_surface: 'OutdoorHard'
+      tournament_surface: 'Hard',
+      tournament_surface_inout: 'Outdoor'
     }
     actual = @activity.pickup_activity_data[1]
     assert_equal(actual, expected)
