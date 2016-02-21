@@ -33,7 +33,8 @@ module AtpScraper
         ranking: pickup_player_rank(player_doc),
         player_name: pickup_player_name(player_doc),
         player_url_name: get_url_name(url),
-        player_id: get_url_id(url)
+        player_id: get_url_id(url),
+        points: pickup_player_points(player_doc)
       }
     end
 
@@ -47,6 +48,11 @@ module AtpScraper
 
     def pickup_player_url(player_doc)
       player_doc.css(".player-cell a").attr("href").value
+    end
+
+    # points: '5,000'(in html) => '5000'
+    def pickup_player_points(player_doc)
+      player_doc.css(".points-cell").first.content.strip.delete(',')
     end
 
     # url => "/en/players/rafael-nadal/n409/overview"
