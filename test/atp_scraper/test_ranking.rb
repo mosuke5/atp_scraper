@@ -18,7 +18,8 @@ class TestRanking < Test::Unit::TestCase
       ranking: '1',
       player_name: 'Novak Djokovic',
       player_url_name: 'novak-djokovic',
-      player_id: 'd643'
+      player_id: 'd643',
+      points: '16790'
     }
     actual = @ranking.pickup_ranking_data.first
     assert_equal(actual, expected)
@@ -29,7 +30,8 @@ class TestRanking < Test::Unit::TestCase
       ranking: '5',
       player_name: 'Rafael Nadal',
       player_url_name: 'rafael-nadal',
-      player_id: 'n409'
+      player_id: 'n409',
+      points: '4880'
     }
     actual = @ranking.pickup_ranking_data[4]
     assert_equal(actual, expected)
