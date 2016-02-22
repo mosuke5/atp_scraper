@@ -132,8 +132,10 @@ module AtpScraper
     def divide_surface(surface)
       if (surface.match(/^Outdoor/))
         return { surface: surface.gsub(/Outdoor/, ''), inout: "Outdoor" }
-      else
+      elsif (surface.match(/^Indoor/))
         return { surface: surface.gsub(/Indoor/, ''), inout: "Indoor" }
+      else
+        return { surface: surface, inout: nil }
       end
     end
   end
