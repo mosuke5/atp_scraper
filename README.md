@@ -29,7 +29,8 @@ AtpScraper::Get.singles_ranking
 #   rannking: "5"
 #   player_name: "Rafael Nadal",
 #   player_url_name: "rafael-nadal",
-#   player_id: "n409"
+#   player_id: "n409",
+#   points: "5000"
 # }
 
 # Get Singles Ranking 101-200
@@ -39,11 +40,11 @@ AtpScraper::Get.singles_ranking("101-200")
 AtpScraper::Get.player_activity("n409", 2016)
 # Response Json
 # {
-#   year: 2016,
+#   year: "2016",
 #   player_name: "Rafael Nadal",
-#   player_rank: 5,
+#   player_rank: "5",
 #   opponent_name: "Fernand Verdasco",
-#   opponent_rank: 45,
+#   opponent_rank: "45",
 #   round: "Round of 128",
 #   score: "673 64 63 674 26",
 #   win_loss: "L",
