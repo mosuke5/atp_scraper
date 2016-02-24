@@ -123,20 +123,16 @@ module AtpScraper
 
     def pickup_surface(tournament_doc)
       surface = tournament_doc
-        .css(".tourney-details")[1]
-        .css(".item-details")
-        .first.content.gsub(/\t|\s/, "")
+                .css(".tourney-details")[1]
+                .css(".item-details")
+                .first.content.gsub(/\t|\s/, "")
       divide_surface(surface)
     end
 
     def divide_surface(surface)
-      if (surface.match(/^Outdoor/))
-        return { surface: surface.gsub(/Outdoor/, ''), inout: "Outdoor" }
-      elsif (surface.match(/^Indoor/))
-        return { surface: surface.gsub(/Indoor/, ''), inout: "Indoor" }
-      else
-        return { surface: surface, inout: nil }
-      end
+      inout = surface.match(/^(Outdoor|Indoor)/)
+      return { surface: surface, inout: nil } if inout.nil?
+      { surface: surface.gsub(/#{inout[0]}/, ''), inout: inout[0] }
     end
   end
 end
