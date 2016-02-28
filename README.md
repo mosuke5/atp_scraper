@@ -52,8 +52,12 @@ AtpScraper::Get.player_activity("n409", 2016)
 #   tournament_location: "Melbourne, Australia",
 #   tournament_start_date: "2016.01.18",
 #   tournament_end_date: "2016.01.31",
-#   tournament_surface: "OurdoorHard"
+#   tournament_surface: "Hard",
+#   tournament_surface_inout: "Ourdoor"
 # }
+
+# Get Player All Activity. For Example Rafael Nadal's all activity
+AtpScraper::Get.player_activity("n409", "all")
 ```
 
 ## Contributing
