@@ -12,6 +12,7 @@
 ###################
 
 require 'atp_scraper/activities/record'
+require 'atp_scraper/activities/tournament'
 module AtpScraper
   # Scrape activity data
   class Activity
@@ -23,14 +24,12 @@ module AtpScraper
 
     def pickup_activity_data
       result = []
-      player = {}
 
       search_tournaments_doc(@activity_doc).each do |tournament_doc|
-        tournament = pickup_tournament_info(tournament_doc)
-        player[:rank] = pickup_player_rank(tournament[:caption])
-        search_records_doc(tournament_doc).each do |record_doc|
-          record = Record.pickup_record(record_doc)
-          record_hash = create_record(record, player, tournament)
+        tournament = Tournament.new(tournament_doc)
+        tournament.records.each do |record_doc|
+          record = Record.new(record_doc)
+          record_hash = create_record(record.info, tournament.info)
           result.push(record_hash)
         end
       end
@@ -43,15 +42,11 @@ module AtpScraper
       activity_doc.css(".activity-tournament-table")
     end
 
-    def search_records_doc(tournament_doc)
-      tournament_doc.css(".mega-table tbody tr")
-    end
-
-    def create_record(record, player, tournament)
+    def create_record(record, tournament)
       {
         year: tournament[:year],
         player_name: @player_name,
-        player_rank: player[:rank],
+        player_rank: tournament[:ranking],
         opponent_name: record[:opponent_name],
         opponent_rank: record[:opponent_rank],
         round: record[:round],
@@ -70,50 +65,6 @@ module AtpScraper
       activity_doc
         .css("meta[property=\"pageTransitionTitle\"]")
         .attr("content").value
-    end
-
-    def pickup_tournament_info(tournament_doc)
-      tournament_date = pickup_text(tournament_doc, ".tourney-dates")
-      surface = pickup_surface(tournament_doc)
-      {
-        name: pickup_text(tournament_doc, ".tourney-title"),
-        location: pickup_text(tournament_doc, ".tourney-location"),
-        date: divide_tournament_date(tournament_date),
-        year: tournament_date[0, 4],
-        caption: pickup_text(tournament_doc, ".activity-tournament-caption"),
-        surface: surface[:surface],
-        surface_inout: surface[:inout]
-      }
-    end
-
-    def pickup_player_rank(tournament_caption)
-      rank = tournament_caption.match(/ATP Ranking:(.+), Prize/)
-      rank[1].strip
-    end
-
-    # Before: String "2011.01.03 - 2011.01.08"
-    # After:  Hash { start: 2011.01.03, end: 2011.01.08 }
-    def divide_tournament_date(date)
-      date = date.split('-').map(&:strip)
-      { start: date[0], end: date[1] }
-    end
-
-    def pickup_text(doc, selector)
-      doc.css(selector).first.content.strip
-    end
-
-    def pickup_surface(tournament_doc)
-      surface = tournament_doc
-                .css(".tourney-details")[1]
-                .css(".item-details")
-                .first.content.gsub(/\t|\s/, "")
-      divide_surface(surface)
-    end
-
-    def divide_surface(surface)
-      inout = surface.match(/^(Outdoor|Indoor)/)
-      return { surface: surface, inout: nil } if inout.nil?
-      { surface: surface.gsub(/#{inout[0]}/, ''), inout: inout[0] }
     end
   end
 end
