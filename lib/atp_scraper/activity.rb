@@ -11,9 +11,11 @@
 #     record_doc
 ###################
 
+require 'atp_scraper/activities/record'
 module AtpScraper
   # Scrape activity data
   class Activity
+    include Activities
     def initialize(html, html_charset = 'utf-8')
       @activity_doc = AtpScraper::Html.parse(html, html_charset)
       @player_name = pickup_player_name(@activity_doc)
@@ -22,13 +24,12 @@ module AtpScraper
     def pickup_activity_data
       result = []
       player = {}
-      player[:name] = @player_name
 
       search_tournaments_doc(@activity_doc).each do |tournament_doc|
         tournament = pickup_tournament_info(tournament_doc)
         player[:rank] = pickup_player_rank(tournament[:caption])
         search_records_doc(tournament_doc).each do |record_doc|
-          record = pickup_record(record_doc)
+          record = Record.pickup_record(record_doc)
           record_hash = create_record(record, player, tournament)
           result.push(record_hash)
         end
@@ -49,7 +50,7 @@ module AtpScraper
     def create_record(record, player, tournament)
       {
         year: tournament[:year],
-        player_name: player[:name],
+        player_name: @player_name,
         player_rank: player[:rank],
         opponent_name: record[:opponent_name],
         opponent_rank: record[:opponent_rank],
@@ -69,26 +70,6 @@ module AtpScraper
       activity_doc
         .css("meta[property=\"pageTransitionTitle\"]")
         .attr("content").value
-    end
-
-    def pickup_record(record_doc)
-      result = {}
-      record_doc.css("td").each_with_index do |td, n|
-        record_content = td.content.strip
-        case n
-        when 0 then
-          result[:round] = record_content
-        when 1 then
-          result[:opponent_rank] = record_content
-        when 2 then
-          result[:opponent_name] = record_content
-        when 3 then
-          result[:win_loss] = record_content
-        when 4 then
-          result[:score] = record_content
-        end
-      end
-      result
     end
 
     def pickup_tournament_info(tournament_doc)
