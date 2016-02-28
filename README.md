@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/atp_scraper.svg)](https://badge.fury.io/rb/atp_scraper)
 [![Build Status](https://travis-ci.org/mosuke5/atp_scraper.svg?branch=master)](https://travis-ci.org/mosuke5/atp_scraper)
 # AtpScraper
 AtpScraper is a tool scraping tennis data from atpworldtour.com
