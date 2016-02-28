@@ -1,7 +1,17 @@
 module Activities
   # Activity Record Class
   class Record
-    def self.pickup_record(record_doc)
+    def initialize(doc)
+      @record = doc
+    end
+
+    def info
+      pickup_record(@record)
+    end
+
+    private
+
+    def pickup_record(record_doc)
       result = {}
       record_doc.css("td").each_with_index do |td, n|
         record_content = td.content.strip
