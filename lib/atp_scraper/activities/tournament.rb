@@ -10,18 +10,19 @@ module Activities
     end
 
     def records
-      search_records_doc(@tournament)
+      search_records_doc
     end
 
     private
 
     def pickup_info(tournament_doc)
-      tournament_date = pickup_text(tournament_doc, ".tourney-dates")
-      surface = pickup_surface(tournament_doc)
-      caption = pickup_text(tournament_doc, ".activity-tournament-caption")
+      tournament_date = pickup_text(".tourney-dates")
+      surface = pickup_surface
+      caption = pickup_text(".activity-tournament-caption")
       {
-        name: pickup_text(tournament_doc, ".tourney-title"),
-        location: pickup_text(tournament_doc, ".tourney-location"),
+        name: pickup_text(".tourney-title"),
+        category: pickup_category,
+        location: pickup_text(".tourney-location"),
         date: divide_tournament_date(tournament_date),
         year: tournament_date[0, 4],
         surface: surface[:surface],
@@ -37,18 +38,25 @@ module Activities
       { start: date[0], end: date[1] }
     end
 
-    def pickup_text(doc, selector)
-      doc.css(selector).first.content.strip
+    def pickup_text(selector)
+      @tournament.css(selector).first.content.strip
     end
 
-    def pickup_surface(tournament_doc)
-      surface = tournament_doc
+    def pickup_category
+      # ex) /~/media/images/tourtypes/categorystamps_itf_118x64.png?xxxxx
+      badge_url = @tournament.css(".tourney-badge-wrapper img").attr("src").value
+      badge_url.match(/categorystamps_(.*)_[0-9]*x[0-9]*.png/)[1]
+    end
+
+    def pickup_surface
+      surface = @tournament
                 .css(".tourney-details")[1]
                 .css(".item-details")
                 .first.content.gsub(/\t|\s/, "")
       divide_surface(surface)
     end
-
+    
+    # "OutdoorHard" => { surface: "Hard", inout: "Outdoor" } 
     def divide_surface(surface)
       inout = surface.match(/^(Outdoor|Indoor)/)
       return { surface: surface, inout: nil } if inout.nil?
@@ -60,8 +68,8 @@ module Activities
       rank[1].strip
     end
 
-    def search_records_doc(tournament_doc)
-      tournament_doc.css(".mega-table tbody tr")
+    def search_records_doc
+      @tournament.css(".mega-table tbody tr")
     end
   end
 end

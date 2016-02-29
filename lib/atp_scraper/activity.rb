@@ -53,6 +53,7 @@ module AtpScraper
         score: record[:score],
         win_loss: record[:win_loss],
         tournament_name: tournament[:name],
+        tournament_category: tournament[:category],
         tournament_location: tournament[:location],
         tournament_start_date: tournament[:date][:start],
         tournament_end_date: tournament[:date][:end],
