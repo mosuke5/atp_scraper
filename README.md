@@ -50,6 +50,7 @@ AtpScraper::Get.player_activity("n409", 2016)
 #   score: "673 64 63 674 26",
 #   win_loss: "L",
 #   tournament_name: "Australian Open",
+#   tournament_category: "grandslam",
 #   tournament_location: "Melbourne, Australia",
 #   tournament_start_date: "2016.01.18",
 #   tournament_end_date: "2016.01.31",
