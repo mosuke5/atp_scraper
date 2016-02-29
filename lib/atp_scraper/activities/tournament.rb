@@ -5,17 +5,8 @@ module Activities
       @tournament = doc
     end
 
-    def info
-      pickup_info(@tournament)
-    end
-
-    def records
-      search_records_doc
-    end
-
-    private
-
-    def pickup_info(tournament_doc)
+    # Return tournament data
+    def get
       tournament_date = pickup_text(".tourney-dates")
       surface = pickup_surface
       caption = pickup_text(".activity-tournament-caption")
@@ -30,6 +21,13 @@ module Activities
         ranking: pickup_player_rank(caption)
       }
     end
+    
+    # Return records in this tournament
+    def records
+      @tournament.css(".mega-table tbody tr")
+    end
+
+    private
 
     # Before: String "2011.01.03 - 2011.01.08"
     # After:  Hash { start: 2011.01.03, end: 2011.01.08 }
@@ -66,10 +64,6 @@ module Activities
     def pickup_player_rank(tournament_caption)
       rank = tournament_caption.match(/ATP Ranking:(.+), Prize/)
       rank[1].strip
-    end
-
-    def search_records_doc
-      @tournament.css(".mega-table tbody tr")
     end
   end
 end

@@ -15,7 +15,7 @@ module AtpScraper
 
     def pickup_ranking_data
       result = []
-      search_player_doc(@ranking_doc).each do |player_doc|
+      search_player_doc.each do |player_doc|
         result.push(pickup_player_data(player_doc))
       end
       result
@@ -23,8 +23,8 @@ module AtpScraper
 
     private
 
-    def search_player_doc(ranking_doc)
-      ranking_doc.css(".mega-table tbody tr")
+    def search_player_doc
+      @ranking_doc.css(".mega-table tbody tr")
     end
 
     def pickup_player_data(player_doc)
@@ -55,11 +55,12 @@ module AtpScraper
       player_doc.css(".points-cell").first.content.strip.delete(',')
     end
 
-    # url => "/en/players/rafael-nadal/n409/overview"
+    # "/en/players/rafael-nadal/n409/overview" => "rafael-nadal"
     def get_url_name(url)
       url.split("/")[3]
     end
 
+    # "/en/players/rafael-nadal/n409/overview" => "n409"
     def get_url_id(url)
       url.split("/")[4]
     end

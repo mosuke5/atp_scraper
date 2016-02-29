@@ -19,17 +19,17 @@ module AtpScraper
     include Activities
     def initialize(html, html_charset = 'utf-8')
       @activity_doc = AtpScraper::Html.parse(html, html_charset)
-      @player_name = pickup_player_name(@activity_doc)
+      @player_name = pickup_player_name
     end
 
     def pickup_activity_data
       result = []
 
-      search_tournaments_doc(@activity_doc).each do |tournament_doc|
+      search_tournaments_doc.each do |tournament_doc|
         tournament = Tournament.new(tournament_doc)
         tournament.records.each do |record_doc|
           record = Record.new(record_doc)
-          record_hash = create_record(record.info, tournament.info)
+          record_hash = create_record(record.get, tournament.get)
           result.push(record_hash)
         end
       end
@@ -38,8 +38,8 @@ module AtpScraper
 
     private
 
-    def search_tournaments_doc(activity_doc)
-      activity_doc.css(".activity-tournament-table")
+    def search_tournaments_doc
+      @activity_doc.css(".activity-tournament-table")
     end
 
     def create_record(record, tournament)
@@ -62,8 +62,8 @@ module AtpScraper
       }
     end
 
-    def pickup_player_name(activity_doc)
-      activity_doc
+    def pickup_player_name
+      @activity_doc
         .css("meta[property=\"pageTransitionTitle\"]")
         .attr("content").value
     end

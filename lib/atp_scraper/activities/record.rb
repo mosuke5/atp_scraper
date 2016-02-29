@@ -5,15 +5,9 @@ module Activities
       @record = doc
     end
 
-    def info
-      pickup_record(@record)
-    end
-
-    private
-
-    def pickup_record(record_doc)
+    def get
       result = {}
-      record_doc.css("td").each_with_index do |td, n|
+      @record.css("td").each_with_index do |td, n|
         record_content = td.content.strip
         case n
         when 0 then
