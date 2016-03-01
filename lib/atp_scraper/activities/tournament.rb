@@ -21,7 +21,7 @@ module Activities
         ranking: pickup_player_rank(caption)
       }
     end
-    
+
     # Return records in this tournament
     def records
       @tournament.css(".mega-table tbody tr")
@@ -53,8 +53,8 @@ module Activities
                 .first.content.gsub(/\t|\s/, "")
       divide_surface(surface)
     end
-    
-    # "OutdoorHard" => { surface: "Hard", inout: "Outdoor" } 
+
+    # "OutdoorHard" => { surface: "Hard", inout: "Outdoor" }
     def divide_surface(surface)
       inout = surface.match(/^(Outdoor|Indoor)/)
       return { surface: surface, inout: nil } if inout.nil?
