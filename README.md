@@ -25,7 +25,7 @@ require "atp_scraper"
 
 # Get Singles Ranking TOP100
 AtpScraper::Get.singles_ranking
-# Response Json
+# Response
 # {
 #   rannking: "5"
 #   player_name: "Rafael Nadal",
@@ -39,7 +39,7 @@ AtpScraper::Get.singles_ranking("101-200")
 
 # Get Player Activity. For Example Rafael Nadal's activity in 2016
 AtpScraper::Get.player_activity("n409", 2016)
-# Response Json
+# Response
 # {
 #   year: "2016",
 #   player_name: "Rafael Nadal",
