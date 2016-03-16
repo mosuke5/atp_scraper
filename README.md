@@ -3,6 +3,8 @@
 # AtpScraper
 AtpScraper is a tool scraping tennis data from atpworldtour.com
 
+[https://rubygems.org/gems/atp_scraper]
+
 ## Installation
 
 Add this line to your application's Gemfile:
