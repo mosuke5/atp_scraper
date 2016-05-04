@@ -5,7 +5,7 @@ module AtpScraper
       def initialize(doc)
         @record = doc
       end
-  
+
       def get
         result = {}
         @record.css("td").each_with_index do |td, n|
