@@ -46,9 +46,9 @@ module AtpScraper
       {
         year: tournament[:year],
         player_name: @player_name,
-        player_rank: tournament[:ranking],
+        player_rank: convert_ranking(tournament[:ranking]),
         opponent_name: record[:opponent_name],
-        opponent_rank: record[:opponent_rank],
+        opponent_rank: convert_ranking(record[:opponent_rank]),
         round: record[:round],
         score: record[:score],
         win_loss: record[:win_loss],
@@ -66,6 +66,11 @@ module AtpScraper
       @activity_doc
         .css("meta[property=\"pageTransitionTitle\"]")
         .attr("content").value
+    end
+
+    def convert_ranking(ranking)
+      return nil if ranking == '-'
+      ranking
     end
   end
 end

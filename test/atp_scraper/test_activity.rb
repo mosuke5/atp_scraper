@@ -57,9 +57,9 @@ class TestActivity < Test::Unit::TestCase
     expected = {
       year: '2016',
       player_name: 'Novak Djokovic',
-      player_rank: '-',
+      player_rank: nil,
       opponent_name: 'Rafael Nadal',
-      opponent_rank: '-',
+      opponent_rank: nil,
       round: 'Finals',
       score: '61 62',
       win_loss: 'W',
