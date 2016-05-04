@@ -52,4 +52,26 @@ class TestActivity < Test::Unit::TestCase
     actual = @activity.pickup_activity_data[1]
     assert_equal(actual, expected)
   end
+
+  def test_pickup_activity_data_ranking_dash
+    expected = {
+      year: '2016',
+      player_name: 'Novak Djokovic',
+      player_rank: '-',
+      opponent_name: 'Rafael Nadal',
+      opponent_rank: '-',
+      round: 'Finals',
+      score: '61 62',
+      win_loss: 'W',
+      tournament_name: 'Qatar ExxonMobil Open',
+      tournament_category: '250',
+      tournament_location: 'Doha, Qatar',
+      tournament_start_date: '2016.01.04',
+      tournament_end_date: '2016.01.10',
+      tournament_surface: 'Hard',
+      tournament_surface_inout: 'Outdoor'
+    }
+    actual = @activity.pickup_activity_data[3]
+    assert_equal(actual, expected)
+  end
 end
