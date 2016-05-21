@@ -69,7 +69,7 @@ module AtpScraper
     end
 
     def convert_ranking(ranking)
-      return nil if ranking == '-'
+      return nil if ranking == '-' || ranking == '0'
       ranking
     end
   end
