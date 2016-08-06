@@ -9,7 +9,7 @@ module AtpScraper
     end
 
     def self.player_activity(player_id, year)
-      request_uri = "/players/anything/#{player_id}/player-activity?year=#{year}"
+      request_uri = "/players/anything/#{player_id}/player-activity?year=#{year}&matchType=singles"
       activity_html = AtpScraper::Html.get(request_uri)
       activity = AtpScraper::Activity.new(activity_html[:html], activity_html[:charset])
       activity.pickup_activity_data
