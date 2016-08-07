@@ -34,6 +34,7 @@ module AtpScraper
         player_name: pickup_player_name(player_doc),
         player_url_name: get_url_name(url),
         player_id: get_url_id(url),
+        country: pickup_player_country(player_doc),
         points: pickup_player_points(player_doc)
       }
     end
@@ -63,6 +64,10 @@ module AtpScraper
     # "/en/players/rafael-nadal/n409/overview" => "n409"
     def get_url_id(url)
       url.split("/")[4]
+    end
+
+    def pickup_player_country(player_doc)
+      player_doc.css(".country-item img").attr("alt").value
     end
   end
 end
