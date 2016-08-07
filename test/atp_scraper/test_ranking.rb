@@ -19,6 +19,7 @@ class TestRanking < Test::Unit::TestCase
       player_name: 'Novak Djokovic',
       player_url_name: 'novak-djokovic',
       player_id: 'd643',
+      country: 'SRB',
       points: '16790'
     }
     actual = @ranking.pickup_ranking_data.first
@@ -31,6 +32,7 @@ class TestRanking < Test::Unit::TestCase
       player_name: 'Rafael Nadal',
       player_url_name: 'rafael-nadal',
       player_id: 'n409',
+      country: 'ESP',
       points: '4880'
     }
     actual = @ranking.pickup_ranking_data[4]

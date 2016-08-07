@@ -33,6 +33,7 @@ AtpScraper::Get.singles_ranking
 #   player_name: "Rafael Nadal",
 #   player_url_name: "rafael-nadal",
 #   player_id: "n409",
+#   country: "ESP",
 #   points: "5000"
 # }
 
