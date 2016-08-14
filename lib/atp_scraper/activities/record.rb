@@ -20,10 +20,27 @@ module AtpScraper
           when 3 then
             result[:win_loss] = record_content
           when 4 then
-            result[:score] = record_content
+            result[:score] = convert_score(record_content)
           end
         end
         result
+      end
+
+      private
+
+      # "62 765" -> "62 76(5)"
+      # "768 64 46 46 76-74" -> "76(8) 64 46 46 76-74"
+      def convert_score(score)
+        result = []
+        score.split("\s").each do |s|
+          # Str starts '76' or '67' (not '76-' or '67-')
+          if (a = s.slice!(/^(76|67)(?!-)/))
+            result.push("#{a}(#{s})")
+          else
+            result.push(s)
+          end
+        end
+        result.join("\s")
       end
     end
   end
