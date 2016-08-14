@@ -50,7 +50,7 @@ AtpScraper::Get.player_activity("n409", 2016)
 #   opponent_name: "Fernand Verdasco",
 #   opponent_rank: "45",
 #   round: "Round of 128",
-#   score: "673 64 63 674 26",
+#   score: "67(3) 64 63 67(4) 26",
 #   win_loss: "L",
 #   tournament_name: "Australian Open",
 #   tournament_category: "grandslam",

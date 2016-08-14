@@ -17,7 +17,7 @@ class TestActivity < Test::Unit::TestCase
       opponent_name: 'Andy Murray',
       opponent_rank: '2',
       round: 'Finals',
-      score: '61 75 763',
+      score: '61 75 76(3)',
       win_loss: 'W',
       tournament_name: 'Australian Open',
       tournament_category: 'grandslam',
